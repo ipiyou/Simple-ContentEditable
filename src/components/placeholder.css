@@ -1,0 +1,4 @@
+.ElementEditable :first-child[placeholder]:empty:before {
+  content: attr(placeholder);
+  color: #555;
+}
