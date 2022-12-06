@@ -43,7 +43,7 @@ const Element: FunctionComponent<ElementEditableType> = ({
   onChange,
   ...props
 }) => {
-  const ref = Ref ? Ref : createRef<RefType>();
+  const ref = Ref ? Ref : createRef<RefType>(); // Ref가 없을 경우 새로 만듬
   const last = useRef<string>(value);
 
   const onInput = (e: FormEvent<HTMLElement>) => {
@@ -52,19 +52,17 @@ const Element: FunctionComponent<ElementEditableType> = ({
 
     const html = parent.innerHTML;
     if (html !== last.current) {
-      // Clone event with Object.assign to avoid
-      // "Cannot assign to read only property 'target' of object"
-      const evt = Object.assign({}, e, {
+      const evt = Object.assign({}, e, { 
         target: {
           value: html,
         },
       });
-      onChange(evt);
+      onChange(evt); // evt는 FormEvent<div>와 value속성을 동시에 가진다
     }
     last.current = html;
   };
 
-  return createElement(props.element, {
+  return createElement(props.element, { // 다양한 element를 생성
     ref: ref,
     dangerouslySetInnerHTML: { __html: value },
     onInput: onInput,
@@ -72,7 +70,7 @@ const Element: FunctionComponent<ElementEditableType> = ({
   });
 };
 
-const MemoBoolean = (
+const MemoBoolean = ( // 컴포넌트의 리렌더링을 제거해 커서의 위치 변형을 막음
   props: Readonly<ElementEditableType>,
   nextProps: Readonly<ElementEditableType>
 ): boolean => {

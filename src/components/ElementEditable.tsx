@@ -19,7 +19,7 @@ export interface ElementEditableType {
 }
 
 function ElementEditable(props: ElementEditableType) {
-  const className = "ElementEditable";
+  const className = "ElementEditable"; // placeholder를 주기 위해 className추가
   return createElement("div", { className }, <Element {...props} />);
 }
 
